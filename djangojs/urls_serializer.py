@@ -8,7 +8,14 @@ import sys
 import types
 
 from django.core.serializers.json import DjangoJSONEncoder
-from django.urls import URLPattern as RegexURLPattern, URLResolver as RegexURLResolver, get_script_prefix
+try:
+    from django.urls import (
+            URLPattern as RegexURLPattern, URLResolver as RegexURLResolver, get_script_prefix
+    )
+except ImportError:
+    from django.core.urlresolvers import (  # Will be removed in Django 2.0
+        RegexURLPattern, RegexURLResolver, get_script_prefix
+    )
 from django.utils import six
 
 from djangojs.conf import settings
